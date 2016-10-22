@@ -1,19 +1,13 @@
 package graph
 
-import java.awt.BasicStroke
-import java.awt.Color
-import java.awt.Dimension
-import java.awt.Graphics
-import java.awt.Graphics2D
-import java.awt.Point
-import java.awt.RenderingHints
-import java.awt.Stroke
-import java.util.ArrayList
-import java.util.Random
-import javax.swing.*
+import model.BaggageModel
+import java.awt.*
+import java.util.*
+import javax.swing.JFrame
+import javax.swing.JPanel
 
 @SuppressWarnings("serial")
-class DrawGraph(private val scores: List<Int>) : JPanel() {
+class DrawGraph(private val scores: ArrayList<BaggageModel>) : JPanel() {
 
 	override fun paintComponent(g: Graphics) {
 		super.paintComponent(g)
@@ -23,19 +17,22 @@ class DrawGraph(private val scores: List<Int>) : JPanel() {
 		val xScale = (width.toDouble() - 2 * BORDER_GAP) / X_HATCH_CNT
 		val yScale = (height.toDouble() - 2 * BORDER_GAP) / Y_HATCH_CNT
 
-		val graphPoints = ArrayList<Point>()
+		val graphPoints = ArrayList<ColorPoint>()
 		for (i in scores.indices) {
-			val x1 = (i * xScale + BORDER_GAP).toInt()
-			val y1 = ((Y_HATCH_CNT - scores[i]) * yScale + BORDER_GAP).toInt()
-			graphPoints.add(Point(x1, y1))
+			val baggageModel = scores[i]
+			val x1 = (baggageModel.ds * xScale + BORDER_GAP).toInt()
+			val y1 = ((Y_HATCH_CNT - baggageModel.dm) * yScale + BORDER_GAP).toInt()
+			val color = if (baggageModel.objClass == 0) GRAPH_POINT_COLOR_FALSE else GRAPH_POINT_COLOR_TRUE
+			graphPoints.add(ColorPoint(x1, y1,color))
 		}
 		drawGrid(g2, xScale, yScale)
 
 
-		g2.color = GRAPH_POINT_COLOR_TRUE
 		for (i in graphPoints.indices) {
-			val x = graphPoints[i].x - GRAPH_POINT_WIDTH / 2
-			val y = graphPoints[i].y - GRAPH_POINT_WIDTH / 2
+			val colorPoint = graphPoints[i]
+			g2.color = colorPoint.color
+			val x = colorPoint.x - GRAPH_POINT_WIDTH / 2
+			val y = colorPoint.y - GRAPH_POINT_WIDTH / 2
 			val ovalW = GRAPH_POINT_WIDTH
 			val ovalH = GRAPH_POINT_WIDTH
 			g2.fillOval(x, y, ovalW, ovalH)
@@ -86,13 +83,8 @@ class DrawGraph(private val scores: List<Int>) : JPanel() {
 		private val Y_HATCH_CNT = 10
 		private val X_HATCH_CNT = 10
 
-		fun createAndShowGui() {
-			val scores = ArrayList<Int>()
-			val random = Random()
-			val maxDataPoints = 10
-			for (i in 0..maxDataPoints - 1) {
-				scores.add(i)
-			}
+		fun createAndShowGui(scores: ArrayList<BaggageModel>) {
+
 			val mainPanel = DrawGraph(scores)
 
 			val frame = JFrame("DrawGraph")
@@ -104,3 +96,5 @@ class DrawGraph(private val scores: List<Int>) : JPanel() {
 		}
 	}
 }
+
+data class ColorPoint(val x: Int, val y: Int, val color: Color)
