@@ -13,5 +13,5 @@ fun main(args: Array<String>) {
 	TableUtils.printTable("Обучающая выборка", DataProviders.trainingSet)
 	TableUtils.printTable("Контрольная выборка", DataProviders.controlSet)
 
-	SwingUtilities.invokeLater { DrawGraph.createAndShowGui(DataProviders.trainingSet) }
+	SwingUtilities.invokeLater { DrawGraph.createAndShowGui(DataProviders.trainingSet,DataProviders.controlSet) }
 }
