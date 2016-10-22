@@ -9,8 +9,8 @@ import javax.swing.SwingUtilities
  */
 
 
-val trainingSet: ArrayList<Pair<BaggageModel, Boolean>> = ArrayList()
-val controlSet: ArrayList<Pair<BaggageModel, Boolean>> = ArrayList()
+val trainingSet: ArrayList<BaggageModel> = ArrayList()
+val controlSet: ArrayList<BaggageModel> = ArrayList()
 
 
 fun main(args: Array<String>) {
@@ -18,26 +18,26 @@ fun main(args: Array<String>) {
 	init()
 
 	val tableUtils = TableUtils()
-	tableUtils.printTable("Обучающая выборка",trainingSet)
-	tableUtils.printTable("Контрольная выборка",controlSet)
+	tableUtils.printTable("Обучающая выборка", trainingSet)
+	tableUtils.printTable("Контрольная выборка", controlSet)
 
 
 	SwingUtilities.invokeLater { DrawGraph.createAndShowGui() }
 }
 
 fun init() {
-	trainingSet.add(Pair(BaggageModel(1,2),true))
-	trainingSet.add(Pair(BaggageModel(2,3),true))
-	trainingSet.add(Pair(BaggageModel(2,3),true))
-	trainingSet.add(Pair(BaggageModel(5,3),true))
-	trainingSet.add(Pair(BaggageModel(10,0),true))
-	trainingSet.add(Pair(BaggageModel(0,7),true))
-	trainingSet.add(Pair(BaggageModel(5,6),false))
-	trainingSet.add(Pair(BaggageModel(5,10),false))
-	trainingSet.add(Pair(BaggageModel(0,10),false))
-	trainingSet.add(Pair(BaggageModel(5,5),false))
+	trainingSet.add(BaggageModel(1, 2, 1))
+	trainingSet.add(BaggageModel(2, 3, 1))
+	trainingSet.add(BaggageModel(2, 3, 1))
+	trainingSet.add(BaggageModel(5, 3, 1))
+	trainingSet.add(BaggageModel(10, 0, 1))
+	trainingSet.add(BaggageModel(0, 7, 1))
+	trainingSet.add(BaggageModel(5, 6, 0))
+	trainingSet.add(BaggageModel(5, 1, 0))
+	trainingSet.add(BaggageModel(0, 1, 0))
+	trainingSet.add(BaggageModel(5, 5, 0))
 
-	controlSet.add(Pair(BaggageModel(0,0),true))
-	controlSet.add(Pair(BaggageModel(1,5),true))
-	controlSet.add(Pair(BaggageModel(7,7),false))
+	controlSet.add(BaggageModel(0, 0, 1))
+	controlSet.add(BaggageModel(1, 5, 1))
+	controlSet.add(BaggageModel(7, 7, 0))
 }

@@ -11,21 +11,20 @@ class TableUtils {
 	private val count = 3
 	private val s = "| %${count}s | %${count}s | %${count}s | %${count}s |"
 
-	fun printTable(tableName:String, items: ArrayList<Pair<BaggageModel, Boolean>>) {
+	fun printTable(tableName:String, items: ArrayList<BaggageModel>) {
 
 		println(tableName)
 		println(s.format("№","ds","dm", "cl"))
 
 		items.forEachIndexed { i, pair ->
-			val first = pair.first
-			printRow(i, first.ds, first.dm, pair.second)
+			printRow(i, pair.ds, pair.dm, pair.objClass)
 		}
 		println()
 
 	}
 
-	private fun printRow(i: Int, ds: Int, dm: Int, second: Boolean) {
-		println(s.format(i,ds,dm, second.toInt()))
+	private fun printRow(i: Int, ds: Int, dm: Int, second: Int) {
+		println(s.format(i,ds,dm, second))
 	}
 
 }
