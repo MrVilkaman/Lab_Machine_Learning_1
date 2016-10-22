@@ -21,8 +21,8 @@ class DataProviders {
 			arrayList.add(BaggageModel(0, 7, 1))
 			arrayList.add(BaggageModel(5, 6, 0))
 			arrayList.add(BaggageModel(5, 1, 1))
-			arrayList.add(BaggageModel(0, 1, 1))
-			arrayList.add(BaggageModel(5, 5, 0))
+			arrayList.add(BaggageModel(7, 3, 0))
+			arrayList.add(BaggageModel(5, 7, 0))
 			return@lazy arrayList
 		}
 
@@ -34,6 +34,4 @@ class DataProviders {
 			return@lazy list
 		}
 	}
-
-	fun qwer(){}
 }
