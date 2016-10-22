@@ -35,4 +35,5 @@ class DataProviders {
 		}
 	}
 
+	fun qwer(){}
 }

@@ -1,6 +1,8 @@
 group 'ai'
 version '1.0-SNAPSHOT'
 
+apply from: 'dependencies.gradle'
+
 buildscript {
     ext.kotlin_version = '1.0.4'
 
@@ -20,4 +22,10 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    //tests
+    testCompile libraries.junit
+    testCompile libraries.assertJ
+    testCompile libraries.mockitoCore
+    testCompile libraries.hamcrest
 }
