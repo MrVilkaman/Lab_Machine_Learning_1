@@ -15,7 +15,7 @@ class DataProviders {
 			val arrayList = ArrayList<BaggageModel>()
 			arrayList.add(BaggageModel(1.0, 2.0, 1))
 			arrayList.add(BaggageModel(2.0, 3.0, 1))
-			arrayList.add(BaggageModel(2.0, 3.0, 1))
+			arrayList.add(BaggageModel(2.0, 4.0, 1))
 			arrayList.add(BaggageModel(5.0, 3.0, 1))
 			arrayList.add(BaggageModel(10.0, 0.0, 1))
 			arrayList.add(BaggageModel(0.0, 7.0, 1))

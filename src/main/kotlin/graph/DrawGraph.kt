@@ -22,21 +22,21 @@ class DrawGraph(private val scores: List<BaggageModel>, private val controlSet: 
 		val yScale = (height.toDouble() - 2 * BORDER_GAP) / Y_HATCH_CNT
 
 		val graphPoints = ArrayList<ColorPoint>()
-		fillPoints(graphPoints, xScale, yScale, controlSet) { Pair(GRAPH_POINT_COLOR_CONTROL, GRAPH_POINT_WIDTH_BASE) }
+		fillPoints(graphPoints, xScale, yScale, controlSet,{""}) { Pair(GRAPH_POINT_COLOR_CONTROL, GRAPH_POINT_WIDTH_BASE) }
 
 		val color1: (BaggageModel) -> Pair<Color, Int> = {
 			Pair(objClassToColor(it.objClass), GRAPH_POINT_WIDTH)
 		}
 
-		fillPoints(graphPoints, xScale, yScale, scores, color1)
-		fillPoints(graphPoints, xScale, yScale, controlSet, color1)
+		fillPoints(graphPoints, xScale, yScale, scores,{it.second.toString()}, color1)
+		fillPoints(graphPoints, xScale, yScale, controlSet,{it.second.toString()}, color1)
 
 		val pointSet: List<BaggageModelColored> = pointSet.map {
 			BaggageModelColored(it.x, it.y, objClassToColor(it.objClass), Color.BLACK)
 		}
 
-		fillPoints(graphPoints, xScale, yScale, pointSet) { Pair(it.color, GRAPH_POINT_WIDTH_BASE) }
-		fillPoints(graphPoints, xScale, yScale, pointSet) { Pair(it.colorSub, GRAPH_POINT_WIDTH) }
+		fillPoints(graphPoints, xScale, yScale, pointSet,{""}) { Pair(it.color, GRAPH_POINT_WIDTH_BASE) }
+		fillPoints(graphPoints, xScale, yScale, pointSet,{""}) { Pair(it.colorSub, GRAPH_POINT_WIDTH) }
 
 		drawGrid(g2, xScale, yScale)
 
@@ -50,6 +50,8 @@ class DrawGraph(private val scores: List<BaggageModel>, private val controlSet: 
 			val x = colorPoint.x - ovalW / 2
 			val y = colorPoint.y - ovalH / 2
 			g2.fillOval(x.toInt(), y.toInt(), ovalW.toInt(), ovalH.toInt())
+			g2.color = Color.BLACK
+			g2.drawString(colorPoint.name,x+16,y+10)
 		}
 	}
 
@@ -59,13 +61,13 @@ class DrawGraph(private val scores: List<BaggageModel>, private val controlSet: 
 	}
 
 	private fun <T : BaggageModel> fillPoints(graphPoints: ArrayList<ColorPoint>, xScale: Double, yScale: Double,
-	                                          arrayList: List<T>, colorSize: (T) -> Pair<Color, Int>) {
+	                                          arrayList: List<T>,name:( Pair<T, Int>) -> String, colorSize: (T) -> Pair<Color, Int>) {
 		for (i in arrayList.indices) {
 			val baggageModel = arrayList[i]
 			val x1 = getX(baggageModel, xScale)
 			val y1 = getY(baggageModel, yScale)
 			val color = colorSize(baggageModel)
-			graphPoints.add(ColorPoint(x1, y1, color.first, color.second))
+			graphPoints.add(ColorPoint(x1, y1, color.first, color.second,name(Pair(baggageModel,i))))
 		}
 	}
 
@@ -132,4 +134,4 @@ class DrawGraph(private val scores: List<BaggageModel>, private val controlSet: 
 	}
 }
 
-data class ColorPoint(val x: Int, val y: Int, val color: Color, val size: Int)
+data class ColorPoint(val x: Int, val y: Int, val color: Color, val size: Int,val name: String)
