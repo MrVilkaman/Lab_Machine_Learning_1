@@ -1,11 +1,6 @@
 import dp.DataProviders
 import graph.DrawGraph
-import model.BaggageModel
-import model.BaggageModelColored
 import utils.LabUtils
-import utils.TableUtils
-import java.awt.Color
-import java.util.*
 import javax.swing.SwingUtilities
 
 /**
@@ -14,13 +9,16 @@ import javax.swing.SwingUtilities
 
 fun main(args: Array<String>) {
 	val items = DataProviders.trainingSet
-	TableUtils.printTable("Обучающая выборка", items)
-	TableUtils.printTable("Контрольная выборка", DataProviders.controlSet)
+	val controlSet = DataProviders.controlSet
+
+//	TableUtils.printTable("Обучающая выборка", items)
+//	TableUtils.printTable("Контрольная выборка", controlSet)
 
 	val centerPos = LabUtils.getCenterPos(items)
 
+
 	SwingUtilities.invokeLater {
-		DrawGraph.createAndShowGui(items, DataProviders.controlSet, centerPos)
+		DrawGraph.createAndShowGui(items, controlSet, centerPos)
 	}
 }
 

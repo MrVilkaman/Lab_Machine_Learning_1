@@ -27,8 +27,8 @@ class LabUtils {
 		}
 
 		private fun getCenterPos2(filter: List<BaggageModel>): SimplePoint? {
-			var x:Float = 0f
-			var y:Float = 0f
+			var x:Double = 0.0
+			var y:Double = 0.0
 			val size = filter.size
 			if (size == 0) {
 				return null

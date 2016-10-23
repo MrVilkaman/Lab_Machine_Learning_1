@@ -14,18 +14,18 @@ class LabUtilsTest : BaseTestCase() {
 
 	@Test
 	fun getCenterPos_oneClass() {
-		val items = arrayListOf(BaggageModel(0f,0f,1),BaggageModel(1f,1f,1))
+		val items = arrayListOf(BaggageModel(0.0,0.0,1),BaggageModel(1.0,1.0,1))
 		val centerPos = LabUtils.getCenterPos(items)
 
-		Assertions.assertThat(centerPos).contains(SimplePoint(0.5f,0.5f)).hasSize(1)
+		Assertions.assertThat(centerPos).contains(SimplePoint(0.5,0.5,1)).hasSize(1)
 	}
 
 	@Test
 	fun getCenterPos_twoClass() {
-		val items = arrayListOf(BaggageModel(0f,0f,1),BaggageModel(1f,1f,1),BaggageModel(0f,0f,0),BaggageModel(4f,4f,0))
+		val items = arrayListOf(BaggageModel(0.0,0.0,1),BaggageModel(1.0,1.0,1),BaggageModel(0.0,0.0,0),BaggageModel(4.0,4.0,0))
 		val centerPos = LabUtils.getCenterPos(items)
 
-		Assertions.assertThat(centerPos).contains(SimplePoint(0.5f,0.5f),SimplePoint(2f,2f)).hasSize(2)
+		Assertions.assertThat(centerPos).contains(SimplePoint(0.5,0.5,1),SimplePoint(2.0,2.0,0)).hasSize(2)
 	}
 
 }

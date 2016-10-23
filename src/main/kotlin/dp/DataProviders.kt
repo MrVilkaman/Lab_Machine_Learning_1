@@ -13,24 +13,24 @@ class DataProviders {
 
 		val trainingSet: ArrayList<BaggageModel> by lazy {
 			val arrayList = ArrayList<BaggageModel>()
-			arrayList.add(BaggageModel(1f, 2f, 1))
-			arrayList.add(BaggageModel(2f, 3f, 1))
-			arrayList.add(BaggageModel(2f, 3f, 1))
-			arrayList.add(BaggageModel(5f, 3f, 1))
-			arrayList.add(BaggageModel(10f, 0f, 1))
-			arrayList.add(BaggageModel(0f, 7f, 1))
-			arrayList.add(BaggageModel(5f, 6f, 0))
-			arrayList.add(BaggageModel(5f, 1f, 1))
-			arrayList.add(BaggageModel(7f, 3f, 0))
-			arrayList.add(BaggageModel(5f, 7f, 0))
+			arrayList.add(BaggageModel(1.0, 2.0, 1))
+			arrayList.add(BaggageModel(2.0, 3.0, 1))
+			arrayList.add(BaggageModel(2.0, 3.0, 1))
+			arrayList.add(BaggageModel(5.0, 3.0, 1))
+			arrayList.add(BaggageModel(10.0, 0.0, 1))
+			arrayList.add(BaggageModel(0.0, 7.0, 1))
+			arrayList.add(BaggageModel(5.0, 6.0, 0))
+			arrayList.add(BaggageModel(5.0, 1.0, 1))
+			arrayList.add(BaggageModel(7.0, 3.0, 0))
+			arrayList.add(BaggageModel(5.0, 7.0, 0))
 			return@lazy arrayList
 		}
 
 		val controlSet: ArrayList<BaggageModel> by lazy {
 			val list = ArrayList<BaggageModel>()
-			list.add(BaggageModel(0f, 0f, 1))
-			list.add(BaggageModel(1f, 5f, 1))
-			list.add(BaggageModel(7f, 7f, 0))
+			list.add(BaggageModel(0.0, 0.0, 1))
+			list.add(BaggageModel(1.0, 5.0, 1))
+			list.add(BaggageModel(7.0, 7.0, 0))
 			return@lazy list
 		}
 	}
