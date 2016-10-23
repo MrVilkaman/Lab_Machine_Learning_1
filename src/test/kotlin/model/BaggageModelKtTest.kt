@@ -4,12 +4,12 @@ import org.junit.Assert
 import org.junit.Test
 
 import org.junit.Assert.*
-import utils.BaseTestCase
+import BaseTestCase
 
 /**
  * Created by Zahar on 23.10.16.
  */
-class BaggageModelKtTest:BaseTestCase() {
+class BaggageModelKtTest: BaseTestCase() {
 
 	@Test
 	fun norma() {

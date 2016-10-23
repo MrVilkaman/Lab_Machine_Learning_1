@@ -4,8 +4,6 @@ import model.BaggageModel
 import model.SimplePoint
 import org.assertj.core.api.Assertions
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.runners.MockitoJUnitRunner
 
 /**
  * Created by Zahar on 23.10.16.
@@ -30,7 +28,3 @@ class LabUtilsTest : BaseTestCase() {
 
 }
 
-@RunWith(MockitoJUnitRunner::class)
-open class BaseTestCase {
-
-}
