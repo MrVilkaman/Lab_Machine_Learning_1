@@ -40,7 +40,7 @@ class LabUtils {
 			}
 			x /= size
 			y /= size
-			return SimplePoint(x, y)
+			return SimplePoint(x, y,filter.first().objClass)
 		}
 	}
 }

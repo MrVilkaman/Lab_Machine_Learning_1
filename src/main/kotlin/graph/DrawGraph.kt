@@ -2,6 +2,7 @@ package graph
 
 import model.BaggageModel
 import model.BaggageModelColored
+import model.SimplePoint
 import java.awt.*
 import java.util.*
 import javax.swing.JFrame
@@ -10,7 +11,7 @@ import javax.swing.JPanel
 
 @SuppressWarnings("serial")
 class DrawGraph(private val scores: List<BaggageModel>, private val controlSet: List<BaggageModel>,
-                private val pointSet: List<BaggageModelColored>) : JPanel() {
+                private val pointSet: ArrayList<SimplePoint>) : JPanel() {
 
 	override fun paintComponent(g: Graphics) {
 		super.paintComponent(g)
@@ -24,14 +25,18 @@ class DrawGraph(private val scores: List<BaggageModel>, private val controlSet: 
 		fillPoints(graphPoints, xScale, yScale, controlSet) { Pair(GRAPH_POINT_COLOR_CONTROL, GRAPH_POINT_WIDTH_BASE) }
 
 		val color1: (BaggageModel) -> Pair<Color, Int> = {
-			val color = if (it.objClass == 0) GRAPH_POINT_COLOR_FALSE else GRAPH_POINT_COLOR_TRUE
-			Pair(color, GRAPH_POINT_WIDTH)
+			Pair(objClassToColor(it.objClass), GRAPH_POINT_WIDTH)
 		}
 
 		fillPoints(graphPoints, xScale, yScale, scores, color1)
 		fillPoints(graphPoints, xScale, yScale, controlSet, color1)
-		fillPoints(graphPoints, xScale, yScale, pointSet) { Pair(it.colorSub, GRAPH_POINT_WIDTH_BASE) }
-		fillPoints(graphPoints, xScale, yScale, pointSet) { Pair(GRAPH_POINT_COLOR_CONTROL, GRAPH_POINT_WIDTH) }
+
+		val pointSet: List<BaggageModelColored> = pointSet.map {
+			BaggageModelColored(it.x, it.y, objClassToColor(it.objClass), Color.BLACK)
+		}
+
+		fillPoints(graphPoints, xScale, yScale, pointSet) { Pair(it.color, GRAPH_POINT_WIDTH_BASE) }
+		fillPoints(graphPoints, xScale, yScale, pointSet) { Pair(it.colorSub, GRAPH_POINT_WIDTH) }
 
 		drawGrid(g2, xScale, yScale)
 
@@ -46,6 +51,11 @@ class DrawGraph(private val scores: List<BaggageModel>, private val controlSet: 
 			val y = colorPoint.y - ovalH / 2
 			g2.fillOval(x.toInt(), y.toInt(), ovalW.toInt(), ovalH.toInt())
 		}
+	}
+
+	private fun objClassToColor(objClass: Int): Color {
+		val color = if (objClass == 0) GRAPH_POINT_COLOR_FALSE else GRAPH_POINT_COLOR_TRUE
+		return color
 	}
 
 	private fun <T : BaggageModel> fillPoints(graphPoints: ArrayList<ColorPoint>, xScale: Double, yScale: Double,
@@ -107,9 +117,9 @@ class DrawGraph(private val scores: List<BaggageModel>, private val controlSet: 
 		private val X_HATCH_CNT = 10
 
 		fun createAndShowGui(scores: ArrayList<BaggageModel>, controlSet: ArrayList<BaggageModel>,
-		                     pointSet: List<BaggageModelColored>) {
+		                     pointSet: ArrayList<SimplePoint>) {
 
-			val mainPanel = DrawGraph(scores, controlSet, pointSet);
+			val mainPanel = DrawGraph(scores, controlSet, pointSet)
 
 
 			val frame = JFrame("DrawGraph")

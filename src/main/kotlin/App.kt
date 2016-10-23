@@ -19,11 +19,8 @@ fun main(args: Array<String>) {
 
 	val centerPos = LabUtils.getCenterPos(items)
 
-	val pointSet:List<BaggageModelColored> = centerPos.map {
-		BaggageModelColored(it.x,it.y, Color.GREEN,Color.GRAY)
-	}
 	SwingUtilities.invokeLater {
-		DrawGraph.createAndShowGui(items, DataProviders.controlSet, pointSet)
+		DrawGraph.createAndShowGui(items, DataProviders.controlSet, centerPos)
 	}
 }
 
