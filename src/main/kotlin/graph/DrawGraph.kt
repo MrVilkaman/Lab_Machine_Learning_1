@@ -1,6 +1,7 @@
 package graph
 
 import model.BaggageModel
+import model.BaggageModelColored
 import java.awt.*
 import java.util.*
 import javax.swing.JFrame
@@ -8,7 +9,8 @@ import javax.swing.JPanel
 
 
 @SuppressWarnings("serial")
-class DrawGraph(private val scores: ArrayList<BaggageModel>, private val controlSet: ArrayList<BaggageModel>) : JPanel() {
+class DrawGraph(private val scores: ArrayList<BaggageModel>, private val controlSet: ArrayList<BaggageModel>,
+                private val pointSet: ArrayList<BaggageModelColored>) : JPanel() {
 
 	override fun paintComponent(g: Graphics) {
 		super.paintComponent(g)
@@ -26,6 +28,9 @@ class DrawGraph(private val scores: ArrayList<BaggageModel>, private val control
 		}
 		fillPoints(graphPoints, xScale, yScale, scores, color1)
 		fillPoints(graphPoints, xScale, yScale, controlSet, color1)
+		fillPoints(graphPoints, xScale, yScale, pointSet) {
+			it.color
+		}
 
 		drawGrid(g2, xScale, yScale)
 
@@ -50,8 +55,8 @@ class DrawGraph(private val scores: ArrayList<BaggageModel>, private val control
 		}
 	}
 
-	private fun fillPoints(graphPoints: ArrayList<ColorPoint>, xScale: Double, yScale: Double,
-	                       arrayList: ArrayList<BaggageModel>, color: (BaggageModel) -> Color) {
+	private fun <T : BaggageModel> fillPoints(graphPoints: ArrayList<ColorPoint>, xScale: Double, yScale: Double,
+	                                          arrayList: ArrayList<T>, color: (T) -> Color) {
 		for (i in arrayList.indices) {
 			val baggageModel = arrayList[i]
 			val x1 = getX(baggageModel, xScale)
@@ -60,9 +65,9 @@ class DrawGraph(private val scores: ArrayList<BaggageModel>, private val control
 		}
 	}
 
-	private fun getY(baggageModel: BaggageModel, yScale: Double) = ((Y_HATCH_CNT - baggageModel.dm) * yScale + BORDER_GAP).toInt()
+	private fun <T : BaggageModel> getY(baggageModel: T, yScale: Double) = ((Y_HATCH_CNT - baggageModel.dm) * yScale + BORDER_GAP).toInt()
 
-	private fun getX(baggageModel: BaggageModel, xScale: Double) = (baggageModel.ds * xScale + BORDER_GAP).toInt()
+	private fun <T : BaggageModel> getX(baggageModel: T, xScale: Double) = (baggageModel.ds * xScale + BORDER_GAP).toInt()
 
 	private fun drawGrid(g2: Graphics2D, xScale: Double, yScale: Double) {
 		// create x and y axes
@@ -107,9 +112,11 @@ class DrawGraph(private val scores: ArrayList<BaggageModel>, private val control
 		private val Y_HATCH_CNT = 10
 		private val X_HATCH_CNT = 10
 
-		fun createAndShowGui(scores: ArrayList<BaggageModel>, controlSet: ArrayList<BaggageModel>) {
+		fun createAndShowGui(scores: ArrayList<BaggageModel>, controlSet: ArrayList<BaggageModel>,
+		                     pointSet: ArrayList<BaggageModelColored>) {
 
-			val mainPanel = DrawGraph(scores, controlSet)
+			val mainPanel = DrawGraph(scores, controlSet, pointSet);
+
 
 			val frame = JFrame("DrawGraph")
 			frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
