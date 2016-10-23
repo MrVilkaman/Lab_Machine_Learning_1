@@ -2,7 +2,9 @@ import dp.DataProviders
 import graph.DrawGraph
 import model.BaggageModel
 import model.BaggageModelColored
+import utils.LabUtils
 import utils.TableUtils
+import java.awt.Color
 import java.util.*
 import javax.swing.SwingUtilities
 
@@ -11,11 +13,17 @@ import javax.swing.SwingUtilities
  */
 
 fun main(args: Array<String>) {
-	TableUtils.printTable("Обучающая выборка", DataProviders.trainingSet)
+	val items = DataProviders.trainingSet
+	TableUtils.printTable("Обучающая выборка", items)
 	TableUtils.printTable("Контрольная выборка", DataProviders.controlSet)
 
-	val pointSet:ArrayList<BaggageModelColored> = ArrayList()
+	val centerPos = LabUtils.getCenterPos(items)
+
+	val pointSet:List<BaggageModelColored> = centerPos.map {
+		BaggageModelColored(it.x,it.y, Color.GREEN,Color.GRAY)
+	}
 	SwingUtilities.invokeLater {
-		DrawGraph.createAndShowGui(DataProviders.trainingSet, DataProviders.controlSet, pointSet)
+		DrawGraph.createAndShowGui(items, DataProviders.controlSet, pointSet)
 	}
 }
+

@@ -18,7 +18,7 @@ class TableUtils {
 			println(s.format("№", "ds", "dm", "cl"))
 
 			items.forEachIndexed { i, pair ->
-				printRow(i, pair.ds, pair.dm, pair.objClass)
+				printRow(i, pair.ds.toInt(), pair.dm.toInt(), pair.objClass)
 			}
 			println()
 

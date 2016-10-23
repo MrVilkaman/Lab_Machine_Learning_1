@@ -6,6 +6,6 @@ import java.awt.Color
  * Created by Zahar on 22.10.16.
  */
 
-open class BaggageModel(val ds: Int, val dm: Int, val objClass: Int)
+open class BaggageModel(val ds: Float, val dm: Float, val objClass: Int)
 
-class BaggageModelColored(ds: Int, dm: Int, val color: Color) : BaggageModel(ds, dm, 0)
+class BaggageModelColored(ds: Float, dm: Float, val color: Color,val colorSub: Color) : BaggageModel(ds, dm, 0)
