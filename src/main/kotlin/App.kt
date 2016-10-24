@@ -1,7 +1,4 @@
-import classification.Сlassification
-import classification.СlassificationCos
-import classification.СlassificationEuclid
-import classification.СlassificationTanimoto
+import classification.*
 import dp.DataProviders
 import graph.DrawGraph
 import utils.LabUtils
@@ -24,6 +21,7 @@ fun main(args: Array<String>) {
 	val arrayList = listOf<Сlassification>(СlassificationCos(), СlassificationEuclid(), СlassificationTanimoto())
 	TableUtils.printTable("Обучающая выборка", items, arrayList,centerPos)
 	TableUtils.printTable("Контрольная выборка", controlSet,arrayList,centerPos)
+	KMeans(СlassificationEuclid()).classifyKNN(items,controlSet,3,2)
 
 	SwingUtilities.invokeLater {
 		DrawGraph.createAndShowGui(items, controlSet, centerPos)
