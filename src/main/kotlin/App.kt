@@ -13,9 +13,9 @@ fun main(args: Array<String>) {
 	val items = DataProviders.trainingSet
 	val controlSet = DataProviders.controlSet
 
-	println("Исходные денные:")
-	TableUtils.printTable("Обучающая выборка", items)
-	TableUtils.printTable("Контрольная выборка", controlSet)
+//	println("Исходные денные:")
+//	TableUtils.printTable("Обучающая выборка", items)
+//	TableUtils.printTable("Контрольная выборка", controlSet)
 
 	val centerPos = LabUtils.getCenterPos(items)
 
