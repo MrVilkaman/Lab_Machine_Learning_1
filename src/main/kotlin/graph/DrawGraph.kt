@@ -80,21 +80,24 @@ class DrawGraph(private val scores: List<BaggageModel>, private val controlSet: 
 		g2.drawLine(BORDER_GAP, height - BORDER_GAP, BORDER_GAP, BORDER_GAP)
 		g2.drawLine(BORDER_GAP, height - BORDER_GAP, width - BORDER_GAP, height - BORDER_GAP)
 
+		g2.color = Color(128, 128, 128,128)
 		// create hatch marks for y axis.
 		for (i in 0..Y_HATCH_CNT - 1) {
 			val x0 = BORDER_GAP
-			val x1 = GRAPH_POINT_WIDTH + BORDER_GAP
+//			val x1 = GRAPH_POINT_WIDTH + BORDER_GAP
+			val x1 = width - BORDER_GAP
 			val y0 = (yScale * i + BORDER_GAP).toInt()
 			val y1 = y0
 			g2.drawLine(x0, y0, x1, y1)
 		}
 
-		for (i in 0..Y_HATCH_CNT - 1) {
+		for (i in 1..X_HATCH_CNT) {
 
 			val x0 = (xScale * i + BORDER_GAP).toInt()
 			val x1 = x0
 			val y0 = height - BORDER_GAP
-			val y1 = y0 - GRAPH_POINT_WIDTH
+			val y1 = BORDER_GAP
+//			val y1 = y0 - GRAPH_POINT_WIDTH
 			g2.drawLine(x0, y0, x1, y1)
 		}
 	}
