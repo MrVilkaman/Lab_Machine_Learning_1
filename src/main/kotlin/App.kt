@@ -25,6 +25,13 @@ fun main(args: Array<String>) {
 	TableUtils.printTable("Обучающая выборка", items, arrayList, centerPos)
 	TableUtils.printTable("Контрольная выборка", controlSet, arrayList, centerPos)
 
+	println("Центры кластеров:")
+	centerPos.forEachIndexed { i, simplePoint ->
+		val format = simplePoint.x.format(2)
+		val format2 = simplePoint.y.format(2)
+		println("$i) $format, $format2")
+	}
+
 	println()
 	println("Классификация K-means:")
 	arrayList.forEach {
@@ -34,6 +41,9 @@ fun main(args: Array<String>) {
 	SwingUtilities.invokeLater {
 		DrawGraph.createAndShowGui(items, controlSet, centerPos)
 	}
+
+
 }
+	fun Double.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
 
 
