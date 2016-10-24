@@ -9,7 +9,9 @@ import java.util.*
 
 class KMeans(val distAlg: Сlassification) {
 
-	fun classifyKNN(trainData: ArrayList<BaggageModel>, testData: ArrayList<BaggageModel>, k: Int, numberOfClasses: Int) {
+	fun classifyKNN(trainData: ArrayList<BaggageModel>, testData: ArrayList<BaggageModel>, k: Int) {
+
+		println(distAlg.name())
 
 		for (i in 0..testData.size - 1) {
 			val baggageModel = testData[i]
@@ -17,41 +19,43 @@ class KMeans(val distAlg: Сlassification) {
 			val set: ArrayList<Pair<BaggageModel, Double>> = ArrayList()
 			for (j in 0..trainData.size - 1) {
 				val baggageModelTrain = trainData[j]
-				val doWork = dist(baggageModelTrain, baggageModel)
+				val doWork = distAlg.doWork(baggageModelTrain, baggageModel)
 				set.add(Pair(baggageModelTrain, doWork))
 			}
 
-			Collections.sort(set) { t, t2 -> if (t.second < t2.second) -1 else 1 }
+			Collections.sort(set) { t, t2 -> sort(t, t2, distAlg.moreIsBetter()) }
 
 
 			val subList = set.subList(0, k)
-			var ss = "${baggageModel.ds} ${baggageModel.dm} ${baggageModel.objClass} | "
-			for (ii in 0..subList.size - 1) {
-				ss += subList[ii].first.objClass.toString()
+			var ss = "Точка №${baggageModel.number} должна быть: ${baggageModel.objClass} | "
+			subList.forEachIndexed { i, pair ->
+				val model = subList[i].first
+				ss += "${model.number}/"
 			}
+			ss = ss.dropLast(1)
+			ss += " -> "
+			subList.forEachIndexed { i, pair ->
+				val model = subList[i].first
+				ss += "${model.objClass}"
+			}
+			ss += " критерий: "
+			subList.forEachIndexed { i, pair ->
+				val model = subList[i].second
+				ss += "${model.format(3)}/"
+			}
+			ss = ss.dropLast(1)
 			println(ss)
+
 		}
+		println()
 
 	}
 
-	fun dist(a: BaggageModel, b: BaggageModel): Double = distAlg.doWork(a, b)
-}
+	private fun sort(t: Pair<BaggageModel, Double>, t2: Pair<BaggageModel, Double>, flag: Boolean): Int {
+		val i = if (t.second < t2.second) -1 else 1
+		return if (flag) -i else i
+	}
 
-/*
-* def classifyKNN (trainData, testData, k, numberOfClasses):
-    #Euclidean distance between 2-dimensional point
-    def dist (a, b):
-        return math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
-    testLabels = []
-    for testPoint in testData:
-        #Claculate distances between test point and all of the train points
-        testDist = [ [dist(testPoint, trainData[i][0]), trainData[i][1]] for i in range(len(trainData))]
-        #How many points of each class among nearest K
-        stat = [0 for i in range(numberOfClasses)]
-        for d in sorted(testDist)[0:k]:
-            stat[d[1]] += 1
-        #Assign a class with the most number of occurences among K nearest neighbours
-        testLabels.append( sorted(zip(stat, range(numberOfClasses)), reverse=True)[0][1] )
-    return testLabels
-*
-* */
+	fun Double.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
+
+}

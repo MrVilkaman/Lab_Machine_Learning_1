@@ -28,8 +28,8 @@ class DrawGraph(private val scores: List<BaggageModel>, private val controlSet: 
 			Pair(objClassToColor(it.objClass), GRAPH_POINT_WIDTH)
 		}
 
-		fillPoints(graphPoints, xScale, yScale, scores,{it.second.toString()}, color1)
-		fillPoints(graphPoints, xScale, yScale, controlSet,{it.second.toString()}, color1)
+		fillPoints(graphPoints, xScale, yScale, scores,{it.first.number.toString()}, color1)
+		fillPoints(graphPoints, xScale, yScale, controlSet,{it.first.number.toString()}, color1)
 
 		val pointSet: List<BaggageModelColored> = pointSet.map {
 			BaggageModelColored(it.x, it.y, objClassToColor(it.objClass), Color.BLACK)
