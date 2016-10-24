@@ -4,7 +4,7 @@ import org.junit.Assert
 import org.junit.Test
 
 import org.junit.Assert.*
-import BaseTestCase
+import utils.BaseTestCase
 
 /**
  * Created by Zahar on 23.10.16.
